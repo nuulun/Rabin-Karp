@@ -5,12 +5,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class RabinKarpTest {
     private RabinKarp algorithm;
-    private static List<String> outputLines = new ArrayList<>();
+    private static FileWriter outputWriter;
+
+    static {
+        try {
+            outputWriter = new FileWriter("output.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @BeforeEach
     public void setUp() {
@@ -77,13 +86,27 @@ public class RabinKarpTest {
 
     @AfterAll
     public static void printComplexity() {
-        System.out.println("\n========================================");
-        System.out.println("ALGORITHM COMPLEXITY ANALYSIS");
-        System.out.println("========================================");
-        System.out.println("Time Complexity: O(n + m) average case");
-        System.out.println("Space Complexity: O(1) auxiliary");
-        System.out.println("Where n = text length, m = pattern length");
-        System.out.println("========================================\n");
+        try {
+            outputWriter.write("\n========================================\n");
+            outputWriter.write("ALGORITHM COMPLEXITY ANALYSIS\n");
+            outputWriter.write("========================================\n");
+            outputWriter.write("Time Complexity: O(n + m) average case\n");
+            outputWriter.write("Space Complexity: O(1) auxiliary\n");
+            outputWriter.write("Where n = text length, m = pattern length\n");
+            outputWriter.write("========================================\n");
+            outputWriter.close();
+
+            System.out.println("\n========================================");
+            System.out.println("ALGORITHM COMPLEXITY ANALYSIS");
+            System.out.println("========================================");
+            System.out.println("Time Complexity: O(n + m) average case");
+            System.out.println("Space Complexity: O(1) auxiliary");
+            System.out.println("Where n = text length, m = pattern length");
+            System.out.println("========================================\n");
+            System.out.println("Output saved to output.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private TestCase readTestCase(int index) {
@@ -113,13 +136,20 @@ public class RabinKarpTest {
 
     private void saveOutput(int testNum, String text, String pattern,
                             List<Integer> positions, long time) {
-        System.out.println("=== Test Case " + testNum + " ===");
-        System.out.println("Input Text: \"" + text + "\"");
-        System.out.println("Search Pattern: \"" + pattern + "\"");
-        System.out.println("Found at positions: " + positions);
-        System.out.println("Total matches: " + positions.size());
-        System.out.println("Time elapsed: " + time + " ns");
-        System.out.println();
+        try {
+            String output = "=== Test Case " + testNum + " ===\n" +
+                    "Input Text: \"" + text + "\"\n" +
+                    "Search Pattern: \"" + pattern + "\"\n" +
+                    "Found at positions: " + positions + "\n" +
+                    "Total matches: " + positions.size() + "\n" +
+                    "Time elapsed: " + time + " ns\n\n";
+
+            outputWriter.write(output);
+            outputWriter.flush();
+            System.out.print(output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static class TestCase {
