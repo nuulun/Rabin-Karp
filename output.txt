@@ -1,0 +1,29 @@
+=== Test Case 1 ===
+Input Text: "abacabacaba"
+Search Pattern: "aba"
+Found at positions: [0, 4, 8]
+Total matches: 3
+Time elapsed: 9600 ns
+
+=== Test Case 2 ===
+Input Text: "ABC ABCDAB ABCDABCDABDE"
+Search Pattern: "ABCDABD"
+Found at positions: [15]
+Total matches: 1
+Time elapsed: 8100 ns
+
+=== Test Case 3 ===
+Input Text: "ABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCDEABCDE"
+Search Pattern: "CDEAB"
+Found at positions: [2, 7, 12, 17, 22, 27, 32, 37, 42]
+Total matches: 9
+Time elapsed: 13500 ns
+
+
+========================================
+ALGORITHM COMPLEXITY ANALYSIS
+========================================
+Time Complexity: O(n + m) average case
+Space Complexity: O(1) auxiliary
+Where n = text length, m = pattern length
+========================================
